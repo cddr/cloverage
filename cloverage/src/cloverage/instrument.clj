@@ -323,7 +323,7 @@
 
 (defmethod do-wrap :cond [f line [cond-symbol & body :as form] _]
   (if (and (= 2 (count body))
-           (= :else (first body)))
+           (keyword? (first body)))
     (f line (macroexpand `(~cond-symbol :else ~(wrap f line (second body)))))
     (wrap f line (macroexpand form))))
 
